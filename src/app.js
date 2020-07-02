@@ -1,11 +1,20 @@
+import { getRandomItem, getRandomFrom } from "./util/randomiser";
+import * as Messages from "./messages";
+import { getGreeting } from "./greeting";
+import { getArticles, getArticleByKeyWord, articlesBaseUrl } from "./articles";
+import * as UIHandler from "./ui/ui";
+import * as localStore from "./util/localstore";
+import * as Words from "./util/words";
 var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 var phoneformat = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
-var greetingsInput = ["Hi", "Hello", "Holla", "Hey"];
 var userHasResponded = false;
 var WELCOME = "welcome";
 var FULL_NAME = "full_name";
-var TEN_MINUTE_IN_MILLIS = 3000;
-var ONE_MINUTE_IN_MILLIS = 1000;
+var QUESTION = "question";
+var TEN_MINUTE_IN_MILLIS = 6000000;
+var ONE_MINUTE_IN_MILLIS = 600000;
+var stage = "welcome"; //TODO: fetch from local
+var selectedArticle;
 var keyword = [
   "product",
   "payment",
@@ -44,9 +53,10 @@ function init() {
   localStorage.setItem("email", "");
   localStorage.setItem("keywords", "");
 
-  var welcomeMessage =
-    "Good evening, my name is Supportbot, send me a hello if you want to chat with me";
-  notifyUser(welcomeMessage, WELCOME);
+  var welcomeMessage = `${getGreeting()}, ${getRandomItem(
+    Messages.welcomeMessages
+  )}`;
+  UIHandler.displayBotMessage(welcomeMessage);
   setSesssionEndChecker();
 }
 
@@ -56,7 +66,7 @@ function setSesssionEndChecker() {
       return;
     }
 
-    notifyUser("Hello. Are you still there?", WELCOME);
+    UIHandler.displayBotMessage("Hello. Are you still there?");
     setChatEndChecker();
   }, TEN_MINUTE_IN_MILLIS);
 }
@@ -67,59 +77,14 @@ function setChatEndChecker() {
       return;
     }
 
-    notifyUser("Thanks for contacting us..");
+    UIHandler.displayBotMessage("Thanks for contacting us..");
     //TODO: Finish up
   }, ONE_MINUTE_IN_MILLIS);
 }
 
-function notifyUser(message, name) {
-  $("#type").prop("disabled", true);
-  $(".typing").removeClass("hidden");
-  setTimeout(function () {
-    var date = new Date();
-    var h = date.getHours();
-    var m = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-    var timestamp =
-      "<i class='' style='font-size:9px'>Today at " + h + ":" + m + "</i>";
-    $("#type").prop("disabled", false);
-    $("#type").attr("name", name);
-
-    $("#chatbody").append(
-      '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt="">' +
-        message +
-        "<br>" +
-        timestamp +
-        '</div><div class="clearfix"></div>'
-    );
-    $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
-    $(".typing").addClass("hidden");
-  }, 1000);
-
-  $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
-}
-
-function checkIfContains(words, testString) {
-  var regex = new RegExp(words.join("|"));
-  return regex.test(testString);
-}
-
-function getTimeStamp() {
-  var date = new Date();
-  var h = date.getHours();
-  var m = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-  return "<i class='' style='font-size:9px'>Today at " + h + ":" + m + "</i>";
-}
-
-function startChat() {
-  var welcome =
-    "Hello my name is Supportbot and I would like to help you today. Please tell me your first and last name";
-  notifyUser(welcome, FULL_NAME);
-}
-
-function showGreetError() {
-  var welcome = "I did not get that. Say hello if you want to chat with me";
-  notifyUser(welcome, WELCOME);
-}
+const isEnterKey = (e) => {
+  return e.which == 13;
+};
 
 /*Input fields*/
 $("#type").on("keydown", function (e) {
@@ -130,116 +95,70 @@ $("#type").on("keydown", function (e) {
     "<i class='' style='font-size:9px'>Today at " + h + ":" + m + "</i>";
   var input = $(this).val();
   userHasResponded = true;
-  if (e.which == 13) {
-    if ($(this).attr("name") == "welcome") {
-      $("#chatbody").append(
-        '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-          input +
-          "<br>" +
-          timestamp +
-          '</div><div class="clearfix">'
+  if (isEnterKey(e)) {
+    if (stage == WELCOME) {
+      UIHandler.displayUserMessage(input);
+      const hasAnyKeyWord = Words.checkIfContains(
+        Messages.greetingsInput,
+        input
       );
-      var isGreeting = checkIfContains(greetingsInput, input);
-      if (isGreeting) {
-        startChat();
+      stage = FULL_NAME;
+      if (hasAnyKeyWord) {
+        UIHandler.displayBotMessage(getRandomItem(Messages.saidHelloMessages));
       } else {
-        showGreetError();
-      }
-      $("#type").val("");
-    } else if ($(this).attr("name") == "question") {
-      localStorage.setItem("question", $(this).val());
-      $("#chatbody").append(
-        '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-          input +
-          "<br>" +
-          timestamp +
-          '</div><div class="clearfix">'
-      );
-
-      if (WordCount($(this).val()) < 4) {
-        $("#type").prop("disabled", true);
-        $(".typing").removeClass("hidden");
-        setTimeout(function () {
-          $("#chatbody").append(
-            '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Oops, I didn\'t hear you. Let\'s try it again So that I can help you, Please choose one of the best keywords that best fits your request<br>' +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="keywords" title="Account">Account</button><button class="bot-btn" value="keywords" title="Payments">Payments</button><button class="bot-btn" value="keywords" title="Problem">Problem</button><button class="bot-btn" value="keywords" title="Feedback">Feedback</button></center>'
-          );
-          $(".typing").addClass("hidden");
-          $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
-        }, 1000);
-      } /*count if less then 4*/ else {
-        search += "<ul>";
-        for (var i = 0; i < keyword.length; i++) {
-          if (input.toLowerCase().includes(keyword[i])) {
-            index.push(keyword[i]);
-            if (!(typeof articles[keyword[i]] === "undefined")) {
-              search +=
-                '<li><a class="load_file" href="#" title="' +
-                articles[keyword[i]] +
-                '">' +
-                articles[keyword[i]] +
-                "</a></li>";
-            }
-          }
-        }
-        search += "</ul>";
-        console.log(index);
-        if (Array.isArray(index) && index.length) {
-          $(".typing").removeClass("hidden");
-          setTimeout(function () {
-            $("#chatbody").append(
-              '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> The help articles are ordered by the most frequent match with the customer\'s  keywords<br> Okay, perfect!<br>I have found the following articles on this topic.<br>' +
-                search +
-                "<br>" +
-                timestamp +
-                '</div><div class="clearfix"></div>'
-            );
-            $(".typing").addClass("hidden");
-            $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
-          }, 1000);
-        } else {
-          $(".typing").removeClass("hidden");
-          setTimeout(function () {
-            $("#chatbody").append(
-              '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Oops, I didn\'t hear you. Let\'s try it again So that I can help you, Please choose one of the best keywords that best fits your request<br>' +
-                timestamp +
-                '</div><div class="clearfix"></div><center><button class="bot-btn" value="keywords" title="Account">Account</button><button class="bot-btn" value="keywords" title="Payments">Payments</button><button class="bot-btn" value="keywords" title="Problem">Problem</button><button class="bot-btn" value="keywords" title="Feedback">Feedback</button></center>'
-            );
-            $(".typing").addClass("hidden");
-            $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
-          }, 1000);
-        }
-      }
-      $("#type").val("");
-      $("#type").attr("name", "question");
-    } /*check question*/
-
-    if ($(this).attr("name") == "fullname") {
-      localStorage.setItem("fullname", $(this).val());
-      $("#type").val("");
-      $("#type").attr("name", "question");
-      $("#chatbody").append(
-        '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-          input +
-          "<br>" +
-          timestamp +
-          '</div><div class="clearfix">'
-      );
-      $(".typing").removeClass("hidden");
-      setTimeout(function () {
-        $("#chatbody").append(
-          '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Okay, Hello <b>' +
-            localStorage.getItem("fullname") +
-            "</b> <br> Nice to meet you :) <br>So that I can help you, Please formulate your request briefly with up to 100 punctuation marks<br>" +
-            timestamp +
-            '</div><div class="clearfix"></div>'
+        UIHandler.displayBotMessage(
+          getRandomItem(Messages.didNotSayHelloMessages)
         );
+      }
+      UIHandler.clearInput();
+    } else if (stage == FULL_NAME) {
+      localStore.storeData(FULL_NAME, input);
+      UIHandler.clearInput();
+      stage = QUESTION;
+      UIHandler.displayUserMessage(input);
+      UIHandler.showBotTyping();
+      UIHandler.displayBotMessage(
+        `Okay, Hello <b>${input}</b>. ${getRandomItem(
+          Messages.askQuestionMessages
+        )}`
+      );
+    } /*check fullname*/ else if (stage == QUESTION) {
+      localStore.storeData(QUESTION, input);
+      UIHandler.displayUserMessage(input);
+      UIHandler.showBotTyping();
+      const articles = getArticles();
+      const words = Words.getContainedWords(Object.keys(articles), input);
 
-        $(".typing").addClass("hidden");
-        $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
-      }, 1000);
-    } /*check fullname*/
+      console.log("WORDS", words);
+
+      if (words.length > 0) {
+        const keywordArticles = getArticleByKeyWord(words);
+        const random3Articles = getRandomFrom(keywordArticles, 3);
+        console.log("ARTICLES", keywordArticles);
+        console.log("THREE", random3Articles);
+
+        const displayedArticles = random3Articles.map((article) => {
+          return `<li><p data-file="${article.file}" class="link load_file" title="
+                ${article.title}">
+                ${article.title}
+                </p></li>`;
+        });
+
+        const search =
+          getRandomItem(Messages.foundArticlesMessages) +
+          `<ul>${displayedArticles.join("")}</ul>`;
+        UIHandler.displayBotMessage(search);
+      } else {
+        UIHandler.displayBotMessage(
+          getRandomItem(Messages.notFoundArticlesMessages)
+        );
+        UIHandler.displayButtons(
+          '<button class="bot-btn" value="keywords" title="Account">Account</button><button class="bot-btn" value="keywords" title="Payments">Payments</button><button class="bot-btn" value="keywords" title="Problem">Problem</button><button class="bot-btn" value="keywords" title="Feedback">Feedback</button>'
+        );
+      }
+      UIHandler.clearInput();
+      stage = QUESTION;
+    } /*check question*/
     if ($(this).attr("name") == "email") {
       if (input.match(mailformat)) {
         $("#type").val("");
@@ -427,14 +346,7 @@ $(document).on("click", ".bot-btn", function () {
   var timestamp =
     "<i class='' style='font-size:9px'>Today at " + h + ":" + m + "</i>";
 
-  $("#chatbody").append(
-    '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-      $(this).text() +
-      "<br>" +
-      timestamp +
-      '</div><div class="clearfix"></div>'
-  );
-  $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
+  UIHandler.displayUserMessage(input);
   setTimeout(function () {
     if (input == "get_started") {
       init();
@@ -605,7 +517,9 @@ $(document).on("click", ".bot-btn", function () {
 }); /*document on end*/
 
 function WordCount(str) {
-  return str.split(" ").length;
+  const count = str.split(" ").length;
+  console.log("COUNT--> ", count);
+  return count;
 }
 $(document).on("click", ".load_file", function () {
   var date = new Date();
@@ -665,3 +579,5 @@ function readTextFile(file) {
   };
   rawFile.send(null);
 }
+
+init();
