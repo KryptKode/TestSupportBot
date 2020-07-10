@@ -1,13 +1,16 @@
 #chatbody::-webkit-scrollbar {
   display: none;
 }
+
 body {
   background: #eee;
 }
+
 #chatbody {
   padding: 50px 30px;
   border: 1px solid #eee;
 }
+
 .bot-btn {
   background-color: transparent;
   border: 1px solid #bbd757;
@@ -17,6 +20,7 @@ body {
   display: inline-block;
   margin: 5px;
 }
+
 .bot-btn:hover {
   background-color: #bbd757;
   color: #fff;
@@ -25,6 +29,7 @@ body {
 .alert-info {
   background-color: #eee !important;
 }
+
 .alert-success {
   color: white;
   margin-left: 25%;
@@ -45,6 +50,7 @@ body {
   background-attachment: fixed;
   border-bottom-left-radius: 15px;
 }
+
 .alert-success:after {
   content: "";
   position: absolute;
@@ -64,6 +70,7 @@ body {
   float: left;
   margin-right: 10px;
 }
+
 .alert-info {
   align-items: flex-start;
 }
@@ -85,6 +92,7 @@ body {
   background: #eee;
   border-bottom-right-radius: 30px;
 }
+
 .alert-info:after {
   content: "";
   position: absolute;

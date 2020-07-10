@@ -164,20 +164,20 @@ $("#type").on("keydown", function (e) {
         $("#type").val("");
         $("#chatbody").append(
           '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-            input +
-            "<br>" +
-            timestamp +
-            '</div><div class="clearfix">'
+          input +
+          "<br>" +
+          timestamp +
+          '</div><div class="clearfix">'
         );
         localStorage.setItem("email", input);
         $(".typing").removeClass("hidden");
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Good!<br> Did I got your e-mail address right?<br>Should my colleague answer to <b>' +
-              localStorage.getItem("email") +
-              "</b><br>To which e-mail address may the colleague answer<br>" +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="confirm_email" title="Yes">Yes, Thats my Mail-Address</button><button class="bot-btn" value="confirm_email" title="No">No, Thats not correct</button></center>'
+            localStorage.getItem("email") +
+            "</b><br>To which e-mail address may the colleague answer<br>" +
+            timestamp +
+            '</div><div class="clearfix"></div><center><button class="bot-btn" value="confirm_email" title="Yes">Yes, Thats my Mail-Address</button><button class="bot-btn" value="confirm_email" title="No">No, Thats not correct</button></center>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -187,17 +187,17 @@ $("#type").on("keydown", function (e) {
         $("#type").prop("disabled", false);
         $("#chatbody").append(
           '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-            input +
-            "<br>" +
-            timestamp +
-            '</div><div class="clearfix">'
+          input +
+          "<br>" +
+          timestamp +
+          '</div><div class="clearfix">'
         );
         $(".typing").removeClass("hidden");
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> <span class="text-danger">Email format is inavlid write it again.</span><br>' +
-              timestamp +
-              '</div><div class="clearfix"></div>'
+            timestamp +
+            '</div><div class="clearfix"></div>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -210,17 +210,17 @@ $("#type").on("keydown", function (e) {
       $("#type").attr("name", "email");
       $("#chatbody").append(
         '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-          input +
-          "<br>" +
-          timestamp +
-          '</div><div class="clearfix">'
+        input +
+        "<br>" +
+        timestamp +
+        '</div><div class="clearfix">'
       );
       $(".typing").removeClass("hidden");
       setTimeout(function () {
         $("#chatbody").append(
           '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Okay, I hear you  <br>To which e-mail address may the colleague answer<br>' +
-            timestamp +
-            '</div><div class="clearfix"></div>'
+          timestamp +
+          '</div><div class="clearfix"></div>'
         );
         $(".typing").addClass("hidden");
         $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -232,18 +232,18 @@ $("#type").on("keydown", function (e) {
       if (input.match(phoneformat)) {
         $("#chatbody").append(
           '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-            input +
-            "<br>" +
-            timestamp +
-            '</div><div class="clearfix">'
+          input +
+          "<br>" +
+          timestamp +
+          '</div><div class="clearfix">'
         );
         /*Send When Phone number Taken*/
         $(".typing").removeClass("hidden");
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Okay, much thanks for your number<br>' +
-              timestamp +
-              '</div><div class="clearfix"></div></center>'
+            timestamp +
+            '</div><div class="clearfix"></div></center>'
           );
 
           $(".typing").addClass("hidden");
@@ -255,10 +255,10 @@ $("#type").on("keydown", function (e) {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Okay, one last question <b>' +
-              localStorage.getItem("fullname") +
-              "</b><br> do you want to add customer number so that your request is displayed in the ticket overview of your customer account?<br>" +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="ask_customer_number" title="Yes">Yes, I want to add a customer number</button><button class="bot-btn" value="ask_customer_number" title="No">No, I do not want to add a customer number.</button></center>'
+            localStorage.getItem("fullname") +
+            "</b><br> do you want to add customer number so that your request is displayed in the ticket overview of your customer account?<br>" +
+            timestamp +
+            '</div><div class="clearfix"></div><center><button class="bot-btn" value="ask_customer_number" title="Yes">Yes, I want to add a customer number</button><button class="bot-btn" value="ask_customer_number" title="No">No, I do not want to add a customer number.</button></center>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -266,17 +266,17 @@ $("#type").on("keydown", function (e) {
       } else {
         $("#chatbody").append(
           '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-            input +
-            "<br>" +
-            timestamp +
-            '</div><div class="clearfix">'
+          input +
+          "<br>" +
+          timestamp +
+          '</div><div class="clearfix">'
         );
         $(".typing").removeClass("hidden");
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> <span class="text-danger">Phone Number allowed only digits</span><br>' +
-              timestamp +
-              '</div><div class="clearfix"></div>'
+            timestamp +
+            '</div><div class="clearfix"></div>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -292,17 +292,17 @@ $("#type").on("keydown", function (e) {
       if (input.match(phoneformat)) {
         $("#chatbody").append(
           '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-            input +
-            "<br>" +
-            timestamp +
-            '</div><div class="clearfix">'
+          input +
+          "<br>" +
+          timestamp +
+          '</div><div class="clearfix">'
         );
         $(".typing").removeClass("hidden");
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> The message to support is completed and sent.<br>All right, well, a support representive will get back to you soon via email.<br>I thank you for the nice conversation and wish you a nice day :)<br>' +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="started" title="Get Started">Get Started</button></center>'
+            timestamp +
+            '</div><div class="clearfix"></div><center><button class="bot-btn" value="started" title="Get Started">Get Started</button></center>'
           );
 
           $(".typing").addClass("hidden");
@@ -312,17 +312,17 @@ $("#type").on("keydown", function (e) {
         $("#type").prop("disabled", false);
         $("#chatbody").append(
           '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-            input +
-            "<br>" +
-            timestamp +
-            '</div><div class="clearfix">'
+          input +
+          "<br>" +
+          timestamp +
+          '</div><div class="clearfix">'
         );
         $(".typing").removeClass("hidden");
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> <span class="text-danger">Phone Number allowed only digits</span><br>' +
-              timestamp +
-              '</div><div class="clearfix"></div>'
+            timestamp +
+            '</div><div class="clearfix"></div>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -358,8 +358,8 @@ $(document).on("click", ".bot-btn", function () {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Great, It was pleasure writing with you!<br>If there are any other questions. I am always at your disposal!<br>Have a nice day :)<br>' +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="started" title="Get Started">Get Started</button></center>'
+            timestamp +
+            '</div><div class="clearfix"></div><center><button class="bot-btn" value="started" title="Get Started">Get Started</button></center>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -371,8 +371,8 @@ $(document).on("click", ".bot-btn", function () {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Okay, then I guess only one person can help you. So that I can reach right colleague directly with your request, Please give me keywords that best describes your request.<br>' +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="keywords" title="Account">Account</button><button class="bot-btn" value="keywords" title="Payments">Payments</button><button class="bot-btn" value="keywords" title="Problem">Problem</button><button class="bot-btn" value="keywords" title="Feedback">Feedback</button></center>'
+            timestamp +
+            '</div><div class="clearfix"></div><center><button class="bot-btn" value="keywords" title="Account">Account</button><button class="bot-btn" value="keywords" title="Payments">Payments</button><button class="bot-btn" value="keywords" title="Problem">Problem</button><button class="bot-btn" value="keywords" title="Feedback">Feedback</button></center>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -389,12 +389,12 @@ $(document).on("click", ".bot-btn", function () {
       setTimeout(function () {
         $("#chatbody").append(
           '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Many thanks <b>' +
-            localStorage.getItem("fullname") +
-            "</b>! I think I have just the right colleague in mind, who is familiar with all questions concerning <b>" +
-            title +
-            "</b> <br> Please enter a message with your request now, which I can forward to the colleague<br>" +
-            timestamp +
-            '</div><div class="clearfix"></div>'
+          localStorage.getItem("fullname") +
+          "</b>! I think I have just the right colleague in mind, who is familiar with all questions concerning <b>" +
+          title +
+          "</b> <br> Please enter a message with your request now, which I can forward to the colleague<br>" +
+          timestamp +
+          '</div><div class="clearfix"></div>'
         );
         $(".typing").addClass("hidden");
         $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -408,8 +408,8 @@ $(document).on("click", ".bot-btn", function () {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> All right, do you want to add a phone number so that may human colleague call back if he has any further questions? <br>' +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="ask_phone" title="Yes">Yes, I would Like</button><button class="bot-btn" value="ask_phone" title="No">No, I do not want to give my phone number.</button></center>'
+            timestamp +
+            '</div><div class="clearfix"></div><center><button class="bot-btn" value="ask_phone" title="Yes">Yes, I would Like</button><button class="bot-btn" value="ask_phone" title="No">No, I do not want to give my phone number.</button></center>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -423,8 +423,8 @@ $(document).on("click", ".bot-btn", function () {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> It doesn\'t matter. I\'ll give you another try entering your email address.  <br>' +
-              timestamp +
-              '</div><div class="clearfix"></div>'
+            timestamp +
+            '</div><div class="clearfix"></div>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -441,10 +441,10 @@ $(document).on("click", ".bot-btn", function () {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Okay ' +
-              localStorage.getItem("fullname") +
-              "</b><br> please Type in, your customer number.<br>" +
-              timestamp +
-              '</div><div class="clearfix"></div>'
+            localStorage.getItem("fullname") +
+            "</b><br> please Type in, your customer number.<br>" +
+            timestamp +
+            '</div><div class="clearfix"></div>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -457,8 +457,8 @@ $(document).on("click", ".bot-btn", function () {
           $("#type").prop("disabled", true);
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> The message to support is completed and sent.<br>  All right, well, a support representive will get back to you soon via email.<br>I thank you for the nice conversation and wish you a nice day :)<br>' +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="started" title="Get Started">Get Started</button></center>'
+            timestamp +
+            '</div><div class="clearfix"></div><center><button class="bot-btn" value="started" title="Get Started">Get Started</button></center>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -474,8 +474,8 @@ $(document).on("click", ".bot-btn", function () {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Okay, Let\'s hear it<br>Enter your <b>phone number</b><br>' +
-              timestamp +
-              '</div><div class="clearfix"></div>'
+            timestamp +
+            '</div><div class="clearfix"></div>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -487,10 +487,10 @@ $(document).on("click", ".bot-btn", function () {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt=""> Okay, one last question <b>' +
-              localStorage.getItem("fullname") +
-              "</b><br> do you want to add customer number so that your request is displayed in the ticket overview of your customer account?<br>" +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="ask_customer_number" title="Yes">Yes, I want to add a customer number</button><button class="bot-btn" value="ask_customer_number" title="No">No, I do not want to add a customer number.</button></center>'
+            localStorage.getItem("fullname") +
+            "</b><br> do you want to add customer number so that your request is displayed in the ticket overview of your customer account?<br>" +
+            timestamp +
+            '</div><div class="clearfix"></div><center><button class="bot-btn" value="ask_customer_number" title="Yes">Yes, I want to add a customer number</button><button class="bot-btn" value="ask_customer_number" title="No">No, I do not want to add a customer number.</button></center>'
           );
           $(".typing").addClass("hidden");
           $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
@@ -529,10 +529,10 @@ $(document).on("click", ".load_file", function () {
     "<i class='' style='font-size:9px'>Today at " + h + ":" + m + "</i>";
   $("#chatbody").append(
     '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-      $(this).attr("title") +
-      "<br>" +
-      timestamp +
-      '</div><div class="clearfix">'
+    $(this).attr("title") +
+    "<br>" +
+    timestamp +
+    '</div><div class="clearfix">'
   );
   readTextFile("docs/" + $(this).attr("title") + ".txt");
 });
@@ -553,10 +553,10 @@ function readTextFile(file) {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt="">' +
-              allText +
-              "<br>" +
-              timestamp +
-              '</div><div class="clearfix"></div>'
+            allText +
+            "<br>" +
+            timestamp +
+            '</div><div class="clearfix"></div>'
           );
 
           $(".typing").addClass("hidden");
@@ -567,8 +567,8 @@ function readTextFile(file) {
         setTimeout(function () {
           $("#chatbody").append(
             '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt="">Did that solve your problem?<br>' +
-              timestamp +
-              '</div><div class="clearfix"></div><center><button class="bot-btn" value="question_solved" title="Yes">Yes</button><button class="bot-btn" value="question_solved" title="No">NO, That didn\'t solve my Problem</button></center>'
+            timestamp +
+            '</div><div class="clearfix"></div><center><button class="bot-btn" value="question_solved" title="Yes">Yes</button><button class="bot-btn" value="question_solved" title="No">NO, That didn\'t solve my Problem</button></center>'
           );
 
           $(".typing").addClass("hidden");
@@ -580,4 +580,70 @@ function readTextFile(file) {
   rawFile.send(null);
 }
 
-init();
+
+/* Preloader */
+$(window).on('load', function () {
+  var preloaderFadeOutTime = 500;
+  function hidePreloader() {
+    var preloader = $('.spinner-wrapper');
+    setTimeout(function () {
+      preloader.fadeOut(preloaderFadeOutTime);
+    }, 500);
+  }
+  hidePreloader();
+});
+
+/* Navbar Scripts */
+// jQuery to collapse the navbar on scroll
+$(window).on('scroll load', function () {
+  if ($(".navbar").offset().top > 60) {
+    $(".fixed-top").addClass("top-nav-collapse");
+  } else {
+    $(".fixed-top").removeClass("top-nav-collapse");
+  }
+});
+
+// jQuery for page scrolling feature - requires jQuery Easing plugin
+$(function () {
+  $(document).on('click', 'a.page-scroll', function (event) {
+    var $anchor = $(this);
+    $('html, body').stop().animate({
+      scrollTop: $($anchor.attr('href')).offset().top
+    }, 600, 'easeInOutExpo');
+    event.preventDefault();
+  });
+});
+
+// closes the responsive menu on menu item click
+$(".navbar-nav li a").on("click", function (event) {
+  if (!$(this).parent().hasClass('dropdown'))
+    $(".navbar-collapse").collapse('hide');
+});
+
+
+
+/* Back To Top Button */
+// create the back to top button
+$('body').prepend('<a href="body" class="back-to-top page-scroll">Back to Top</a>');
+var amountScrolled = 700;
+$(window).scroll(function () {
+  if ($(window).scrollTop() > amountScrolled) {
+    $('a.back-to-top').fadeIn('500');
+  } else {
+    $('a.back-to-top').fadeOut('500');
+  }
+});
+
+
+/* Removes Long Focus On Buttons */
+$(".button, a, button").mouseup(function () {
+  $(this).blur();
+});
+
+$(document).ready(function () {
+  $('#action_menu_btn').click(function () {
+    $('.action_menu').toggle();
+  });
+});
+
+// init();

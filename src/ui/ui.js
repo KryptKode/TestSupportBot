@@ -5,11 +5,19 @@ export const displayBotMessage = (message) => {
     $("#type").prop("disabled", false);
 
     $("#chatbody").append(
-      '<div class="alert alert-info text-left pull-left" style="min-width: 80%"><img src="img/bot.png" class="avatar" alt="">' +
-        message +
-        "<br>" +
-        createTimeStamp() +
-        "</div>"
+      `<div class="d-flex justify-content-start mb-4">
+                <div class="img_cont_msg">
+                  <img
+                    src="images/chatbot.png"
+                    class="rounded-circle user_img_msg"
+                  />
+                </div>
+                <div class="msg_cotainer">
+                  ${message}
+                  <span class="msg_time">${createTimeStamp()}</span>
+                </div>
+              </div>
+      `
     );
     $("#chatbody").scrollTop($("#chatbody").prop("scrollHeight"));
     $(".typing").addClass("hidden");
@@ -21,10 +29,10 @@ export const displayBotMessage = (message) => {
 export const displayUserMessage = (message) => {
   $("#chatbody").append(
     '<div class="alert alert-success text-right pull-right" style="min-width: 80%">' +
-      message +
-      "<br>" +
-      createTimeStamp() +
-      '</div><div class="clearfix">'
+    message +
+    "<br>" +
+    createTimeStamp() +
+    '</div><div class="clearfix">'
   );
 };
 
