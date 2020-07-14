@@ -24,8 +24,8 @@ export const askQuestionMessages = [
 
 export const foundArticlesMessages = [
   "The help articles are ordered by the most frequent match with the customer's  keywords<br> Okay, perfect!<br>I have found the following articles on this topic.<br>",
-  "The support articles are ordered by the most common match with the keywords of the customer < br > Well, fine! I have found the following articles on the subject.<br>",
-  "Help ariticles are ordered in the most frequent match with the customer's keywords < br > Okay, perfect! <br> I have found the following articles on this subject.<br>",
+  "The support articles are ordered by the most common match with the keywords of the customer <br> Well, fine! I have found the following articles on the subject.<br>",
+  "Help ariticles are ordered in the most frequent match with the customer's keywords <br> Okay, perfect! <br> I have found the following articles on this subject.<br>",
 ];
 
 export const notFoundArticlesMessages = [
@@ -38,6 +38,12 @@ export const thankfulMessages = [
   "Many thanks",
   "Thank you",
   "Thank you so much",
+];
+
+export const askArticleHelpedMessages = [
+  "Was any of the articles above useful?",
+  "Did any of those help?",
+  "Were those helpful?",
 ];
 
 export const customerMessage = [

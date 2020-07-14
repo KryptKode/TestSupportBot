@@ -2,13 +2,8 @@
   display: none;
 }
 
-body {
-  background: #eee;
-}
-
 #chatbody {
   padding: 50px 30px;
-  border: 1px solid #eee;
 }
 
 .bot-btn {
@@ -106,7 +101,19 @@ body {
 }
 
 .link {
-  text-decoration: underline;
+  text-decoration: none;
   cursor: pointer;
   font-weight: bold;
+}
+
+.no-borders {
+  border: none;
+}
+
+.article-title {
+  background-color: #82ccdd;
+}
+
+.hidden {
+  display: none;
 }

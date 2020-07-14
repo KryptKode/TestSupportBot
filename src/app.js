@@ -2,9 +2,13 @@ import { getRandomItem, getRandomFrom } from "./util/randomiser";
 import * as Messages from "./messages";
 import { getGreeting } from "./greeting";
 import { getArticles, getArticleByKeyWord, articlesBaseUrl } from "./articles";
+import { helpButtons, articleButtons } from './helpbuttons';
 import * as UIHandler from "./ui/ui";
 import * as localStore from "./util/localstore";
 import * as Words from "./util/words";
+import * as API from './util/api';
+
+
 var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 var phoneformat = /^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g;
 var userHasResponded = false;
@@ -124,40 +128,34 @@ $("#type").on("keydown", function (e) {
       );
     } /*check fullname*/ else if (stage == QUESTION) {
       localStore.storeData(QUESTION, input);
+
       UIHandler.displayUserMessage(input);
       UIHandler.showBotTyping();
-      const articles = getArticles();
-      const words = Words.getContainedWords(Object.keys(articles), input);
 
-      console.log("WORDS", words);
-
-      if (words.length > 0) {
-        const keywordArticles = getArticleByKeyWord(words);
-        const random3Articles = getRandomFrom(keywordArticles, 3);
-        console.log("ARTICLES", keywordArticles);
-        console.log("THREE", random3Articles);
-
-        const displayedArticles = random3Articles.map((article) => {
-          return `<li><p data-file="${article.file}" class="link load_file" title="
-                ${article.title}">
-                ${article.title}
-                </p></li>`;
-        });
-
-        const search =
-          getRandomItem(Messages.foundArticlesMessages) +
-          `<ul>${displayedArticles.join("")}</ul>`;
-        UIHandler.displayBotMessage(search);
-      } else {
+      API.getArticles(input).then((response) => {
+        console.log(response);
+        UIHandler.displayBotMessage(UIHandler.createArticles(
+          getRandomItem(Messages.foundArticlesMessages),
+          response.data
+        ));
+        UIHandler.clearInput();
+        UIHandler.displayText(getRandomItem(Messages.askArticleHelpedMessages), articleButtons.map(button => UIHandler.createButton(button)).join(""));
+        UIHandler.disableInput();
+        stage = QUESTION;
+      }).catch((err) => {
+        console.error(err);
         UIHandler.displayBotMessage(
           getRandomItem(Messages.notFoundArticlesMessages)
         );
-        UIHandler.displayButtons(
-          '<button class="bot-btn" value="keywords" title="Account">Account</button><button class="bot-btn" value="keywords" title="Payments">Payments</button><button class="bot-btn" value="keywords" title="Problem">Problem</button><button class="bot-btn" value="keywords" title="Feedback">Feedback</button>'
-        );
-      }
-      UIHandler.clearInput();
-      stage = QUESTION;
+
+        const actionButtons = helpButtons.map((button) => {
+          return UIHandler.createButton(button)
+        })
+        UIHandler.displayButtons(actionButtons.join(""));
+        UIHandler.clearInput();
+        stage = QUESTION;
+      });
+
     } /*check question*/
     if ($(this).attr("name") == "email") {
       if (input.match(mailformat)) {
@@ -646,4 +644,4 @@ $(document).ready(function () {
   });
 });
 
-// init();
+init();

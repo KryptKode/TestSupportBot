@@ -2214,7 +2214,6 @@ a:hover.back-to-top {
 }
 
 .chat-card {
-    height: 810px;
     border-radius: 15px !important;
     background-color: #ffffff;
     border: 1px solid #00bfd8;
@@ -2239,11 +2238,7 @@ a:hover.back-to-top {
 .card-footer {
     border-radius: 15px 15px 15px 15px !important;
     border-top: 0 !important;
-    margin-bottom: 20px;
-}
-
-.type-box {
-    margin-top: 100px;
+    background-color: #ffffff;
 }
 
 .container {
@@ -2396,6 +2391,7 @@ a:hover.back-to-top {
     margin-bottom: auto;
     margin-right: 10px;
     border-radius: 25px;
+    min-width: 40px;
     background-color: #78e08f;
     padding: 10px;
     position: relative;
@@ -2422,22 +2418,40 @@ a:hover.back-to-top {
 }
 
 .ch-menu {
-    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
     margin-top: 50px;
     margin-right: 20px;
 }
 
 .chat-menu {
-    border: 1px solid black;
+    border: 1px solid #4CAF50;
     background-color: white;
-    color: black;
     padding: 14px 28px;
     font-size: 16px;
+    margin-top: 0.5rem;
     cursor: pointer;
-    border-color: #4CAF50;
     color: green;
     border-radius: 15px;
     line-height: normal;
+}
+
+.chat-button {
+    border: 1px solid #4CAF50;
+    background-color: white;
+    padding: 14px 28px;
+    font-size: 16px;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    color: green;
+    border-radius: 15px;
+    line-height: normal;
+}
+
+.chat-button:hover {
+    background-color: white;
 }
 
 #action_menu_btn {
