@@ -1,8 +1,8 @@
 import { getRandomItem, getRandomFrom } from "./util/randomiser";
 import * as Messages from "./messages";
 import { getGreeting } from "./greeting";
-import { getArticles, getArticleByKeyWord, articlesBaseUrl } from "./articles";
 import { helpButtons, articleButtons } from './helpbuttons';
+import * as Buttons from './helpbuttons';
 import * as UIHandler from "./ui/ui";
 import * as localStore from "./util/localstore";
 import * as Words from "./util/words";
@@ -334,8 +334,42 @@ $("#type").on("keydown", function (e) {
   }
 });
 
+$(document).on("click", ".chat-button", function () {
+  var text = $(this).val();
+  var type = $(this).attr("data-type");
+  var id = $(this).attr("data-id");
+
+  console.log("this", this);
+  console.log("text", text);
+  console.log("type", type);
+  console.log("id", id);
+
+  UIHandler.displayUserMessage(text);
+  UIHandler.scrollToBottom();
+  UIHandler.hideButtons();
+  UIHandler.showBotTyping();
+
+  if (type == Buttons.ARTICLE_HELP_TYPE) {
+
+    if (id == 23) {
+      API.incrementArticleHelped(id)
+        .then((response) => {
+          console.log("Article helped", response);
+        }).catch(err => console.error("Error updating help count", err))
+      console.log("Article type");
+    } else if (id == 22) {
+      API.incrementArticleDidNotHelp(id)
+        .then((response) => {
+          console.log("Article not helped", response);
+        }).catch(err => console.error("Error updating not help count", err))
+    }
+  } else if (type == Buttons.HELP_TYPE) {
+
+  }
+});
+
 /*Button Options */
-$(document).on("click", ".bot-btn", function () {
+$(document).on("click", ".btn-chat", function () {
   var input = $(this).val();
   var title = $(this).attr("title");
   var date = new Date();

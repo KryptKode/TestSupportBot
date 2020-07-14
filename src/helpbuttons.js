@@ -1,29 +1,38 @@
+export const HELP_TYPE = "help";
+export const ARTICLE_HELP_TYPE = "article_helped"
+
 export const helpButtons = [
     {
         id: 1,
-        title: "Account"
+        title: "Account",
+        type: HELP_TYPE
     },
     {
         id: 2,
-        title: "Payment"
+        title: "Payment",
+        type: HELP_TYPE
     },
     {
         id: 3,
-        title: "Problem"
+        title: "Problem",
+        type: HELP_TYPE
     },
     {
         id: 4,
-        title: "Feedback"
+        title: "Feedback",
+        type: HELP_TYPE
     }
 ]
 
 export const articleButtons = [
     {
         id: 22,
-        title: "No"
+        title: "No",
+        type: ARTICLE_HELP_TYPE
     },
     {
         id: 23,
-        title: "Yes"
+        title: "Yes",
+        type: ARTICLE_HELP_TYPE
     }
 ]

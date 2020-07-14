@@ -52,6 +52,10 @@ export const displayButtons = (buttons) => {
   }, 1000);
 };
 
+export const hideButtons = () => {
+  $(".ch-menu").remove();
+};
+
 export const displayText = (text, buttons) => {
   setTimeout(function () {
     $("#chatbody").append(`<center><div class=""><p>${text}</p></div></center>`);
@@ -61,7 +65,7 @@ export const displayText = (text, buttons) => {
 };
 
 export const createButton = (button) => {
-  return `<button class="btn chat-button ml-2" id="button_${button.id}">${button.title}</button>`
+  return `<button class="btn chat-button ml-2" id="button_${button.id}" data-type="${button.type}" data-id="${button.id}">${button.title}</button>`
 }
 
 export const createArticle = (article) => {
@@ -87,10 +91,6 @@ export const createArticles = (message, articles) => {
     }</div>`
 }
 
-
-export const hideButtons = () => {
-  $(".bot-btn").remove();
-};
 
 export const clearInput = () => {
   $("#type").val("");
